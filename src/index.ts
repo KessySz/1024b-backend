@@ -1,57 +1,57 @@
-let x:number = 10
+// let x:number = 10
 
-let nome:string = "Jezabel"
+// let nome:string = "Jezabel"
 
-let vetor:number[] = [1,2,3,4,5]
+// let vetor:number[] = [1,2,3,4,5]
 
-let nomes:string[] = ["Hii~","Hello!"]
-console.log(nomes)
+// let nomes:string[] = ["Hii~","Hello!"]
+// console.log(nomes)
 
-//Teste
+// //Teste
 
-// let bol:boolean = true
+// // let bol:boolean = true
 
-// bol = false
+// // bol = false
 
-// const variavel:any = "oi"
+// // const variavel:any = "oi"
 
-// const a:undefined = undefined;
+// // const a:undefined = undefined;
 
-// const obj:{id:number;nome:string;idade:number} ={
-//     id:1, 
+// // const obj:{id:number;nome:string;idade:number} ={
+// //     id:1, 
+// //     nome:"Kesia",
+// //     idade:18
+// // }
+
+// // obj.nome = "Souza"
+
+// const x1 = 10
+
+// const vetor1: 
+// number[] = [0,1,2,3,4]
+// vetor1[0] = 10
+
+// // vetor1 = [0,1,2,3,4]
+
+// let vetor2 = [0,1,2,3,4]
+// vetor2 = [0,1,2,3,4]
+
+// let aob: number|string = 10 ;
+// aob= "julia"
+
+// const obj:{id?:number;nome:string;idade:number} ={
+    
 //     nome:"Kesia",
 //     idade:18
 // }
 
-// obj.nome = "Souza"
+// type Pessoa = {id?:number;nome:string;idade:number} 
 
-const x1 = 10
-
-const vetor1: 
-number[] = [0,1,2,3,4]
-vetor1[0] = 10
-
-// vetor1 = [0,1,2,3,4]
-
-let vetor2 = [0,1,2,3,4]
-vetor2 = [0,1,2,3,4]
-
-let aob: number|string = 10 ;
-aob= "julia"
-
-const obj:{id?:number;nome:string;idade:number} ={
-    
-    nome:"Kesia",
-    idade:18
-}
-
-type Pessoa = {id?:number;nome:string;idade:number} 
-
-const p:Pessoa={
-    id:76,
-    nome:"Fulana",
-    idade:31
-}
+// const p:Pessoa={
+//     id:76,
+//     nome:"Fulana",
+//     idade:31
+// }
 
 // Funções em Javascript/typescript
 
@@ -63,18 +63,57 @@ const p:Pessoa={
  * Benefício: Não repetir código
  */
 
-const f =  (variavel:number):number=>10
-const f3 = f(10)
-console.log("O valor de x é "+f3.toString())
-console.log(`O valor de x é ${f3}`)
+// const f =  (variavel:number):number=>10
+// const f3 = f(10)
+// console.log("O valor de x é "+f3.toString())
+// console.log(`O valor de x é ${f3}`)
 
-function SomaVetor(vetor:number[]) {
-  let soma = 0
-  for (let i = 0; i < vetor.length; i++)   {
-    const element = vetor[i];
-    soma = soma + element!
-  }
- return soma
+// function SomaVetor(vetor:number[]) {
+//   let soma = 0
+//   for (let i = 0; i < vetor.length; i++)   {
+//     const element = vetor[i];
+//     soma = soma + element!
+//   }
+//  return soma
+// }
+// console.log(`O valor da soma do vetor é ${SomaVetor([1,2,3])}`)
+
+/**
+ * Exercício 01 - Calcular o quadrado de um número
+ * Nome da função - calcularQuadrado
+ * Crie uma função que receba um número e retorne o seu valor elevado ao quadrado.
+ * @param {number} a Número a ser calculado
+ * @returns {number} Retorna o quadrado do número
+ * @example
+ * calcularQuadrado(2) // 4
+ * calcularQuadrado(-3) // 9
+ */
+
+//Início do seu código
+function calcularQuadrado(a:number):number {
+  return a ** 2
 }
-console.log(`O valor da soma do vetor é ${SomaVetor([1,2,3])}`)
+console.log(calcularQuadrado(2))
+console.log(calcularQuadrado(-3))
+//Fim do seu código
 
+/**
+ * Exercício 02 - Verificar se um número é positivo
+ * Nome da função - ehPositivo
+ * Crie uma função que retorne verdadeiro se o número for maior que zero e falso caso contrário.
+ * @param {number} a Número a ser verificado
+ * @returns {boolean} Retorna true para positivos e false para negativos ou zero
+ * @example
+ * ehPositivo(2) // true
+ * ehPositivo(-3) // false
+ */
+
+function ehPositivo(a:number):boolean {
+  let i = 0
+  if (i > 0){
+    return a = true
+  } else 
+    return  = false
+}
+console.log(ehPositivo(2))
+console.log(ehPositivo(-3))
