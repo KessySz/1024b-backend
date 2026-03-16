@@ -200,10 +200,10 @@ console.log(calcularFatorial(0))
 //Início do seu código
 function encontrarMenorNumero(vetor: number[]): number {
   
-    let menor:number = vetor[0];
+    let menor:number = vetor[0]!;
     for (let i = 1; i < vetor.length; i++) {
-      if (vetor[i] < menor) {
-        menor = vetor[i];
+      if (vetor[i]! < menor) {
+        menor = vetor[i]!;
       }
     }
     return menor;
