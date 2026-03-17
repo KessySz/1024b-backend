@@ -407,8 +407,50 @@ console.log(contaVogais("abcdef"));
 
 //Início do seu código
 
+function divisivelPor11(min: number, max: number): number[] {
+  const resultado: number[] = [];
+
+  for (let i = min; i <= max; i++) {
+    if (i % 11 === 0) {
+      resultado.push(i);
+    }
+  }
+  return resultado;
+}
+console.log(divisivelPor11(1, 100))
+console.log(divisivelPor11(11, 110))
 
 //Fim do seu código
+
+/**
+ *  Exercício 03 - maioresDeIdade
+ * Nome da função - maioresDeIdade
+ * Crie uma função que retorna um array com os objetos com idade maior que 18
+ * @param {vetor:Pessoa[]} vetor Vetor de objetos com id, nome e idade
+ * @returns {Pessoa[]} Retorna um array com os objetos com idade maior que 18
+ * @example
+ * 
+ * const pessoa1 = {id: 1, nome: 'João', idade: 20}
+ * const pessoa2 = {id: 2, nome: 'Maria', idade: 18}
+ * const pessoa3 = {id: 3, nome: 'José', idade: 17}
+ * maioresDeIdade([pessoa1, pessoa2, pessoa3]) // [pessoa1, pessoa2]
+ */
+interface Pessoa{
+  id: number,
+  nome: string,
+  idade: number
+}
+function maioresDeIdade(vetor: Pessoa[]): Pessoa[] {
+  const maiores: Pessoa[] = [];
+  for (const pessoa of vetor) {
+    if (pessoa.idade >= 18) {
+      maiores.push(pessoa);
+    }
+  }
+  return maiores;
+}
+
+
 
 // console.log("Início da execução do código")
 // //async function funcao(){
