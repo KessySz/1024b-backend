@@ -21,7 +21,7 @@
   "homepage": "https://github.com/KessySz/1024b-backend#readme",
   "dependencies": {
     "express": "^5.2.1",
-    "mysql2": "^3.18.0"
+    "mysql2": "^3.20.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",

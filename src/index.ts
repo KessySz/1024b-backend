@@ -90,11 +90,11 @@
  */
 
 //Início do seu código
-function calcularQuadrado(a:number):number {
-  return a ** 2
-}
-console.log(calcularQuadrado(2))
-console.log(calcularQuadrado(-3))
+// function calcularQuadrado(a:number):number {
+//   return a ** 2
+// }
+// console.log(calcularQuadrado(2))
+// console.log(calcularQuadrado(-3))
 //Fim do seu código
 
 /**
@@ -108,11 +108,11 @@ console.log(calcularQuadrado(-3))
  * ehPositivo(-3) // false
  */
 
-function ehPositivo(a: number): boolean {
-  return a > 0;
-}
-console.log(ehPositivo(2))
-console.log(ehPositivo(-3))
+// function ehPositivo(a: number): boolean {
+//   return a > 0;
+// }
+// console.log(ehPositivo(2))
+// console.log(ehPositivo(-3))
 //Fim do seu código
 
 /**
@@ -129,12 +129,12 @@ console.log(ehPositivo(-3))
  */
 
 //Início do seu código
-function calcularMedia(a:number, b:number, c:number):number {
+// function calcularMedia(a:number, b:number, c:number):number {
 
- return (a + b + c) / 3
-}
-console.log(calcularMedia(2, 4, 6))
-console.log(calcularMedia(10, 20, 30))
+//  return (a + b + c) / 3
+// }
+// console.log(calcularMedia(2, 4, 6))
+// console.log(calcularMedia(10, 20, 30))
 
 
 //Fim do seu código
@@ -152,13 +152,13 @@ console.log(calcularMedia(10, 20, 30))
 // % x === y (divisão)
 //Início do seu código
 
-function ehAnoBissexto(ano:number):boolean {
+// function ehAnoBissexto(ano:number):boolean {
 
-return ano % 4 === 0
+// return ano % 4 === 0
  
-}
-console.log(ehAnoBissexto(2020))
-console.log(ehAnoBissexto(2021))
+// }
+// console.log(ehAnoBissexto(2020))
+// console.log(ehAnoBissexto(2021))
 //Fim do seu código
 
 /**
@@ -173,17 +173,17 @@ console.log(ehAnoBissexto(2021))
  */
 
 //Início do seu código
-function calcularFatorial(num:number) {
- if (num === 0 || num === 1) return 1;
+// function calcularFatorial(num:number) {
+//  if (num === 0 || num === 1) return 1;
   
-  let resultado: number = 1;
-  for (let i = num; i > 1; i--) {
-    resultado *= i;
-}
-  return resultado;
-}
-console.log(calcularFatorial(5))
-console.log(calcularFatorial(0))
+//   let resultado: number = 1;
+//   for (let i = num; i > 1; i--) {
+//     resultado *= i;
+// }
+//   return resultado;
+// }
+// console.log(calcularFatorial(5))
+// console.log(calcularFatorial(0))
 //Fim do seu código
 
 /**
@@ -198,18 +198,18 @@ console.log(calcularFatorial(0))
  */
 
 //Início do seu código
-function encontrarMenorNumero(vetor: number[]): number {
+// function encontrarMenorNumero(vetor: number[]): number {
   
-    let menor:number = vetor[0]!;
-    for (let i = 1; i < vetor.length; i++) {
-      if (vetor[i]! < menor) {
-        menor = vetor[i]!;
-      }
-    }
-    return menor;
-  }
-console.log(encontrarMenorNumero([3, 1, 5, 2, 4])); 
-console.log(encontrarMenorNumero([-3, -1, -5]));    
+//     let menor:number = vetor[0]!;
+//     for (let i = 1; i < vetor.length; i++) {
+//       if (vetor[i]! < menor) {
+//         menor = vetor[i]!;
+//       }
+//     }
+//     return menor;
+//   }
+// console.log(encontrarMenorNumero([3, 1, 5, 2, 4])); 
+// console.log(encontrarMenorNumero([-3, -1, -5]));    
 
 //Fim do seu código
 
@@ -226,11 +226,11 @@ console.log(encontrarMenorNumero([-3, -1, -5]));
  */
 
 //Início do seu código
-function calcularMaior(a: number, b: number): number {
-  return a > b ? a : b;
-}
-console.log(calcularMaior(2, 3)); 
-console.log(calcularMaior(5, 1));
+// function calcularMaior(a: number, b: number): number {
+//   return a > b ? a : b;
+// }
+// console.log(calcularMaior(2, 3)); 
+// console.log(calcularMaior(5, 1));
 //Fim do seu código
 
 /**
@@ -246,11 +246,11 @@ console.log(calcularMaior(5, 1));
  */
 
 //Início do seu código
-function concatenarStrings(s1: string, s2: string): string {
-  return s1 + s2;
-}
-console.log(concatenarStrings('Olá, ', 'mundo!')); 
-console.log(concatenarStrings('123', '456')); 
+// function concatenarStrings(s1: string, s2: string): string {
+//   return s1 + s2;
+// }
+// console.log(concatenarStrings('Olá, ', 'mundo!')); 
+// console.log(concatenarStrings('123', '456')); 
 //Fim do seu código
 
 /**
@@ -264,8 +264,8 @@ console.log(concatenarStrings('123', '456'));
  * inverteString("abcdef") // "fedcba"
  */ 
 
-// Início do seu código
-//OBS: não use as funções reverse e join
+/* Início do seu código
+
 function inverteString(str: string): string {
   let stringInv: string = "";
   
@@ -278,7 +278,7 @@ function inverteString(str: string): string {
 
 console.log(inverteString("hello"));  
 console.log(inverteString("abcdef")); 
-// Fim do seu código
+ Fim do seu código*/
 
 /**
  * Exercício 10 - Contagem de vogais
@@ -291,7 +291,7 @@ console.log(inverteString("abcdef"));
  * contaVogais("abcdef") // 2
  */
 
-// Início do seu código
+/* Início do seu código
 function contaVogais(str: string): number {
   const vogais: string = "aeiouAEIOU";
   let contador: number = 0;
@@ -308,7 +308,7 @@ function contaVogais(str: string): number {
 console.log(contaVogais("hello"));  
 console.log(contaVogais("abcdef")); 
 
-// Fim do seu código
+ Fim do seu código */
 
 
 /**
@@ -324,19 +324,19 @@ console.log(contaVogais("abcdef"));
  */
 
 //Início do seu código
-function divisivelPor7Ou9(min: number, max: number): number[] {
-  const resultado: number[] = [];
+// function divisivelPor7Ou9(min: number, max: number): number[] {
+//   const resultado: number[] = [];
 
-  for (let i = min; i <= max; i++) {
+//   for (let i = min; i <= max; i++) {
    
-    if (i % 7 === 0 || i % 9 === 0) {
-      resultado.push(i);
-    }
-  }
-  return resultado;
-}
-console.log(divisivelPor7Ou9(1, 50)); 
-console.log(divisivelPor7Ou9(7, 70)); 
+//     if (i % 7 === 0 || i % 9 === 0) {
+//       resultado.push(i);
+//     }
+//   }
+//   return resultado;
+// }
+// console.log(divisivelPor7Ou9(1, 50)); 
+// console.log(divisivelPor7Ou9(7, 70)); 
 //Fim do seu código
 
 /**
@@ -351,20 +351,20 @@ console.log(divisivelPor7Ou9(7, 70));
  */
 
 // Início do seu código
-function contaConsoantes(str: string): number {
-  const vogais: string = "aeiouAEIOU";
-  let contador: number = 0;
+// function contaConsoantes(str: string): number {
+//   const vogais: string = "aeiouAEIOU";
+//   let contador: number = 0;
 
-  for (let caractere of str) {
-    if (/[a-zA-Z]/.test(caractere) && !vogais.includes(caractere)) {
-      contador++;
-    }
-  }
+//   for (let caractere of str) {
+//     if (/[a-zA-Z]/.test(caractere) && !vogais.includes(caractere)) {
+//       contador++;
+//     }
+//   }
 
-  return contador;
-}
-console.log(contaConsoantes("hello"));  
-console.log(contaConsoantes("abcdef")); 
+//   return contador;
+// }
+// console.log(contaConsoantes("hello"));  
+// console.log(contaConsoantes("abcdef")); 
 
 // Fim do seu código
 
@@ -383,12 +383,12 @@ console.log(contaConsoantes("abcdef"));
 
 //Início do seu código
 
-function criaNovoVetor(vetor: number[], valor1: number, valor2: number): number[] {
-  return [...vetor, valor1, valor2];
-}
+// function criaNovoVetor(vetor: number[], valor1: number, valor2: number): number[] {
+//   return [...vetor, valor1, valor2];
+// }
 
-console.log(criaNovoVetor([1, 2, 3], 4, 5)); 
-console.log(criaNovoVetor([1, 2, 3], 0, 0));
+// console.log(criaNovoVetor([1, 2, 3], 4, 5)); 
+// console.log(criaNovoVetor([1, 2, 3], 0, 0));
 
 //Fim do seu código
 
@@ -409,3 +409,57 @@ console.log(criaNovoVetor([1, 2, 3], 0, 0));
 
 
 //Fim do seu código
+
+// console.log("Início da execução do código")
+// //async function funcao(){
+// const funcao = async () => {
+//     const prom =
+//         new Promise<string>((resolve, reject) => {
+//             setTimeout(function handle() { //setTimeout é um cronomêtro
+//                 reject("Executei a função")
+//             }, 5000) // 5000, milisegundos,5 segundos
+//         })
+//     return prom
+// }
+// try { //tente
+//     const resultado = await funcao()
+//     console.log(resultado)
+// }
+// catch(erro){ //se não der certo
+//     console.log("Minha mensagem de erro:"+erro)
+// }
+
+// console.log("Fim da execução do código")
+
+
+// Math.random()>=0.5;{
+
+// }
+
+
+const vetor = [1,2,3,4,5,6,7]
+//  function encontrarVetor(num:number){
+// if (num===3){
+//   return true
+// } 
+// else{
+//   return false
+// }
+// } //ou return num===3 true
+
+// console.log(vetor.find((num:number)=>num==3))
+// console.log(vetor.filter((num:number)=>num>=3))
+
+// function transforma(x:number){
+//   return x**2
+// }
+// const r = vetor.map(transforma)
+// console.log(r)
+const vetor2 = vetor //muda o vetor principal
+const vetor3 = [...vetor] // cria um novo vetor com base no primeiro vetor, uma cópia com os []. os "..." desconstroi o vetor
+vetor2[0] = 10
+vetor3[1] = 10
+console.log(vetor)
+
+const [p1,p2,...rest] = vetor3
+console.log(p1,p2,rest)
