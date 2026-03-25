@@ -1,6 +1,7 @@
 import mysql from 'mysql2/promise';
 import express from 'express'
 const app = express()
+app.use(express.json())
 const connection = mysql.createPool({
     host: 'localhost',
     user: 'root',
@@ -21,6 +22,13 @@ app.post("/pessoas", async(req, res) => {
     try {
         //const preparacao = await connection.prepare("select * from pessoa");
         const {id,nome} = req.body
+      try{
+        const validar = await connection.execute(``)
+      }
+          catch (err){
+         console.log(err);
+        res.status(500).json({mensagem:"Erro no servidor!"})
+          }
         const [resultado, campos] =
             await connection.execute(`insert into pessoa values (?,?)`, [id, nome])
         console.log(resultado)
