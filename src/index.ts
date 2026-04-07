@@ -70,13 +70,14 @@ app.post("/pessoas", async (req, res) => {
     }
 })//Inserir
 
+
+
+
 app.post("/cadastro_produto", async (req, res) => {
     try {
-        //const preparacao = await connection.prepare("select * from pessoa");
+     
         const { id, nome, categoria, preco, data_criacao, data_modificacao } = req.body
-        //Valide se o id e o nome foram passados corretamente. (Algum valor)
-        //Se não foram, retorne o código 400 com a mensagem "id ou nome inválidos"
-        //Não deixe o código executar a parte de baixo quando for inválido.
+       
 
         const [resultado, campos] =
             await connection.execute(`insert into produto values (?,?,?,?,?,?)`, [id, nome,categoria, preco, data_criacao, data_modificacao])
@@ -135,7 +136,7 @@ app.get("/listar_produtos", async (req, res) => {
 app.get("/listar_produtos_informatica", async (req, res) => {
     try {
         const [resultado, campos] =
-            await connection.execute(`SELECT id, nome, categoria, preco, data_criacao, data_modificacao FROM produto WHERE categoria LIKE Informatica OR informatica`)
+            await connection.execute(`SELECT id, nome, categoria, preco, data_criacao, data_modificacao FROM aula1.produto WHERE categoria LIKE 'informatica'`)
         console.log(resultado)
         res.status(200).json(resultado)
     } catch (err) {
