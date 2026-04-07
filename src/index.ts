@@ -136,7 +136,7 @@ app.get("/listar_produtos", async (req, res) => {
 app.get("/listar_produtos_informatica", async (req, res) => {
     try {
         const [resultado, campos] =
-            await connection.execute(`SELECT id, nome, categoria, preco, data_criacao, data_modificacao FROM aula1.produto WHERE categoria LIKE 'informatica'`)
+            await connection.execute(`SELECT id, nome, categoria, preco, data_criacao, data_modificacao FROM produto WHERE categoria LIKE 'informatica'`)
         console.log(resultado)
         res.status(200).json(resultado)
     } catch (err) {
