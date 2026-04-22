@@ -5,7 +5,54 @@ import connection from './mysql_connection.js'
 const app = express()
 app.use(express.json())
 
-app.get("/pessoas", async (req, res) => {
+
+app.get("/cliente_data_pedido", async (req, res) => {
+    try {
+        const [resultado, campos] =
+            await connection.execute(`SELECT clientes.nome, pedidos.datapedido FROM clientes INNER JOIN pedidos ON clientes.idclientes= pedidos.clientes_idclientes`)
+        console.log(resultado)
+        res.status(200).json(resultado)
+    } catch (err) {
+        const mysqlErrorHandle = new MysqlErrorHandle(err,res)
+        mysqlErrorHandle.validar()
+}
+})
+
+app.get("/pedidos_2026", async (req, res) => {
+    try {
+        const [resultado, campos] =
+            await connection.execute(`SELECT idclientes, nome, cidade, idade, idpedidos, datapedido FROM clientes INNER JOIN pedidos ON clientes.idclientes= pedidos.clientes_idclientes WHERE datapedido>='2026-01-01' OR datapedido<='2026-12-31'`)
+        console.log(resultado)
+        res.status(200).json(resultado)
+    } catch (err) {
+        const mysqlErrorHandle = new MysqlErrorHandle(err,res)
+        mysqlErrorHandle.validar()
+}
+})
+app.get("/quantidade_pedidos", async (req, res) => {
+    try {
+        const [resultado, campos] =
+            await connection.execute(`SELECT * FROM clientes INNER JOIN pedidos ON clientes.idclientes= pedidos.clientes_idclientes`)
+        console.log(resultado)
+        res.status(200).json(resultado)
+    } catch (err) {
+        const mysqlErrorHandle = new MysqlErrorHandle(err,res)
+        mysqlErrorHandle.validar()
+}
+})
+app.get("/quantidade_pedidos_clientes", async (req, res) => {
+    try {
+        const [resultado, campos] =
+            await connection.execute(`SELECT * FROM clientes INNER JOIN pedidos ON clientes.idclientes= pedidos.clientes_idclientes`)
+        console.log(resultado)
+        res.status(200).json(resultado)
+    } catch (err) {
+        const mysqlErrorHandle = new MysqlErrorHandle(err,res)
+        mysqlErrorHandle.validar()
+}
+})
+
+/* app.get("/pessoas", async (req, res) => {
     try {
         const [resultado, campos] =
             await connection.execute(`SELECT * FROM pessoa`)
@@ -77,7 +124,7 @@ app.get("/listar_produtos_caros", async (req, res) => {
         const mysqlErrorHandle = new MysqlErrorHandle(err,res)
         mysqlErrorHandle.validar()
     }
-})
+}) */
 //Criar o servidor
 app.listen(8000, () => {
     console.log("Servidor iniciado na porta 8000")
