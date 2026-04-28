@@ -32,7 +32,7 @@ app.get("/pedidos_2026", async (req, res) => {
 app.get("/quantidade_pedidos", async (req, res) => {
     try {
         const [resultado, campos] =
-            await connection.execute(`SELECT * FROM clientes INNER JOIN pedidos ON clientes.idclientes= pedidos.clientes_idclientes`)
+            await connection.execute(`SELECT COUNT(quantidade) AS quantidade_pedidos FROM dbteremercado.itenspedidos`)
         console.log(resultado)
         res.status(200).json(resultado)
     } catch (err) {
@@ -43,7 +43,7 @@ app.get("/quantidade_pedidos", async (req, res) => {
 app.get("/quantidade_pedidos_clientes", async (req, res) => {
     try {
         const [resultado, campos] =
-            await connection.execute(`SELECT * FROM clientes INNER JOIN pedidos ON clientes.idclientes= pedidos.clientes_idclientes`)
+            await connection.execute(`SELECT clientes.nome, SUM(quantidade) AS quantidade_pedidos FROM dbteremercado.clientes INNER JOIN dbteremercado.pedidos ON clientes.idclientes= pedidos.clientes_idclientes INNER JOIN itenspedidos ON itenspedidos.pedidos_idpedidos= pedidos.idpedidos group by clientes.nome`)
         console.log(resultado)
         res.status(200).json(resultado)
     } catch (err) {
