@@ -1,10 +1,14 @@
 import express from 'express'
 import MysqlErrorHandle from './mysql_error_handle.js'
 import connection from './mysql_connection.js'
+import type { RowDataPacket } from 'mysql2'
 
 const app = express()
 app.use(express.json())
 
+interface IQuantidadePedido extends RowDataPacket{
+    quantidade_pedido:number
+}
 
 app.get("/cliente_data_pedido", async (req, res) => {
     try {
@@ -21,7 +25,7 @@ app.get("/cliente_data_pedido", async (req, res) => {
 app.get("/pedidos_2026", async (req, res) => {
     try {
         const [resultado, campos] =
-            await connection.execute(`SELECT idclientes, nome, cidade, idade, idpedidos, datapedido FROM clientes INNER JOIN pedidos ON clientes.idclientes= pedidos.clientes_idclientes WHERE datapedido>='2026-01-01' OR datapedido<='2026-12-31'`)
+            await connection.execute(`SELECT idclientes, nome, cidade, idade, idpedidos, datapedido FROM clientes INNER JOIN pedidos ON clientes.idclientes= pedidos.clientes_idclientes WHERE datapedido>='2026-01-01' AND datapedido<='2026-12-31'`)
         console.log(resultado)
         res.status(200).json(resultado)
     } catch (err) {
@@ -32,9 +36,10 @@ app.get("/pedidos_2026", async (req, res) => {
 app.get("/quantidade_pedidos", async (req, res) => {
     try {
         const [resultado, campos] =
-            await connection.execute(`SELECT COUNT(quantidade) AS quantidade_pedidos FROM dbteremercado.itenspedidos`)
-        console.log(resultado)
-        res.status(200).json(resultado)
+            await connection.execute<IQuantidadePedido[]>(`SELECT COUNT(*) AS quantidade_pedidos FROM dbteremercado.itenspedidos`)
+            const [quantidadePedidos] = [...resultado]
+        console.log(quantidadePedidos)
+        res.status(200).json(quantidadePedidos)
     } catch (err) {
         const mysqlErrorHandle = new MysqlErrorHandle(err,res)
         mysqlErrorHandle.validar()
@@ -43,7 +48,7 @@ app.get("/quantidade_pedidos", async (req, res) => {
 app.get("/quantidade_pedidos_clientes", async (req, res) => {
     try {
         const [resultado, campos] =
-            await connection.execute(`SELECT clientes.nome, SUM(quantidade) AS quantidade_pedidos FROM dbteremercado.clientes INNER JOIN dbteremercado.pedidos ON clientes.idclientes= pedidos.clientes_idclientes INNER JOIN itenspedidos ON itenspedidos.pedidos_idpedidos= pedidos.idpedidos group by clientes.nome`)
+            await connection.execute(`SELECT clientes.nome, COUNT(*) AS quantidade_produtos FROM dbteremercado.clientes INNER JOIN dbteremercado.pedidos ON clientes.idclientes= pedidos.clientes_idclientes group by clientes.nome`)
         console.log(resultado)
         res.status(200).json(resultado)
     } catch (err) {
@@ -51,6 +56,29 @@ app.get("/quantidade_pedidos_clientes", async (req, res) => {
         mysqlErrorHandle.validar()
 }
 })
+app.get("/quantidade_produtos_por_cliente", async (req, res) => {
+    try {
+        const [resultado, campos] =
+            await connection.execute(`SELECT clientes.nome, pedidos.idpedidos AS idpedido, SUM(quantidade) AS quantidade_pedidos FROM clientes INNER JOIN pedidos ON clientes.idclientes= pedidos.clientes_idclientes INNER JOIN itenspedidos ON itenspedidos.pedidos_idpedidos= pedidos.idpedidos GROUP BY clientes.nome, pedidos.idpedidos`)
+        console.log(resultado)
+        res.status(200).json(resultado)
+    } catch (err) {
+        const mysqlErrorHandle = new MysqlErrorHandle(err,res)
+        mysqlErrorHandle.validar()
+}
+})
+app.get("/valor_pedido_total", async (req, res) => {
+    try {
+        const [resultado, campos] =
+            await connection.execute(`SELECT clientes.nome, SUM(preco) AS valor_total FROM clientes INNER JOIN pedidos ON clientes.idclientes= pedidos.clientes_idclientes INNER JOIN itenspedidos ON itenspedidos.pedidos_idpedidos= pedidos.idpedidos INNER JOIN produtos ON itenspedidos.produtos_idprodutos= produtos.idprodutos GROUP BY clientes.nome`)
+        console.log(resultado)
+        res.status(200).json(resultado)
+    } catch (err) {
+        const mysqlErrorHandle = new MysqlErrorHandle(err,res)
+        mysqlErrorHandle.validar()
+}
+})
+
 
 /* app.get("/pessoas", async (req, res) => {
     try {
