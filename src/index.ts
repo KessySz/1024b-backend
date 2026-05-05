@@ -2,8 +2,10 @@ import express from 'express'
 import MysqlErrorHandle from './mysql_error_handle.js'
 import connection from './mysql_connection.js'
 import type { RowDataPacket } from 'mysql2'
+import cors from 'cors'  
 
 const app = express()
+app.use(cors())
 app.use(express.json())
 
 interface IQuantidadePedido extends RowDataPacket{
@@ -59,7 +61,7 @@ app.get("/quantidade_pedidos_clientes", async (req, res) => {
 app.get("/quantidade_produtos_por_cliente", async (req, res) => {
     try {
         const [resultado, campos] =
-            await connection.execute(`SELECT clientes.nome, pedidos.idpedidos AS idpedido, SUM(quantidade) AS quantidade_pedidos FROM clientes INNER JOIN pedidos ON clientes.idclientes= pedidos.clientes_idclientes INNER JOIN itenspedidos ON itenspedidos.pedidos_idpedidos= pedidos.idpedidos GROUP BY clientes.nome, pedidos.idpedidos`)
+            await connection.execute(`SELECT nome, idpedidos, SUM(quantidade) AS quantidade_pedidos FROM clientes INNER JOIN pedidos ON idclientes= clientes_idclientes INNER JOIN itenspedidos ON idpedidos=pedidos_idpedidos GROUP BY idpedidos`)
         console.log(resultado)
         res.status(200).json(resultado)
     } catch (err) {
@@ -70,7 +72,7 @@ app.get("/quantidade_produtos_por_cliente", async (req, res) => {
 app.get("/valor_pedido_total", async (req, res) => {
     try {
         const [resultado, campos] =
-            await connection.execute(`SELECT clientes.nome, SUM(preco) AS valor_total FROM clientes INNER JOIN pedidos ON clientes.idclientes= pedidos.clientes_idclientes INNER JOIN itenspedidos ON itenspedidos.pedidos_idpedidos= pedidos.idpedidos INNER JOIN produtos ON itenspedidos.produtos_idprodutos= produtos.idprodutos GROUP BY clientes.nome`)
+            await connection.execute(`SELECT clientes.nome, SUM(quantidade*preco) AS valor_total FROM clientes INNER JOIN pedidos ON clientes.idclientes= pedidos.clientes_idclientes INNER JOIN itenspedidos ON itenspedidos.pedidos_idpedidos= pedidos.idpedidos INNER JOIN produtos ON itenspedidos.produtos_idprodutos= produtos.idprodutos GROUP BY idpedidos`)
         console.log(resultado)
         res.status(200).json(resultado)
     } catch (err) {
