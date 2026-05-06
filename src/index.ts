@@ -9,7 +9,7 @@ app.use(cors())
 app.use(express.json())
 
 interface IQuantidadePedido extends RowDataPacket{
-    quantidade_pedido:number
+    quantidade_pedidos:number
 }
 
 app.get("/cliente_data_pedido", async (req, res) => {
