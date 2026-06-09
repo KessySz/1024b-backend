@@ -1,7 +1,7 @@
 import express from 'express'
 import MysqlErrorHandle from './mysql_error_handle.js'
 import connection from './mysql_connection.js'
-import type { RowDataPacket } from 'mysql2'
+import type { ResultSetHeader, RowDataPacket } from 'mysql2'
 import cors from 'cors'  
 
 const app = express()
@@ -12,150 +12,100 @@ interface IQuantidadePedido extends RowDataPacket{
     quantidade_pedidos:number
 }
 
-app.get("/cliente_data_pedido", async (req, res) => {
-    try {
-        const [resultado, campos] =
-            await connection.execute(`SELECT clientes.nome, pedidos.datapedido FROM clientes INNER JOIN pedidos ON clientes.idclientes= pedidos.clientes_idclientes`)
-        console.log(resultado)
-        res.status(200).json(resultado)
-    } catch (err) {
-        const mysqlErrorHandle = new MysqlErrorHandle(err,res)
-        mysqlErrorHandle.validar()
-}
-})
-
-app.get("/pedidos_2026", async (req, res) => {
-    try {
-        const [resultado, campos] =
-            await connection.execute(`SELECT idclientes, nome, cidade, idade, idpedidos, datapedido FROM clientes INNER JOIN pedidos ON clientes.idclientes= pedidos.clientes_idclientes WHERE datapedido>='2026-01-01' AND datapedido<='2026-12-31'`)
-        console.log(resultado)
-        res.status(200).json(resultado)
-    } catch (err) {
-        const mysqlErrorHandle = new MysqlErrorHandle(err,res)
-        mysqlErrorHandle.validar()
-}
-})
-app.get("/quantidade_pedidos", async (req, res) => {
-    try {
-        const [resultado, campos] =
-            await connection.execute<IQuantidadePedido[]>(`SELECT COUNT(*) AS quantidade_pedidos FROM dbteremercado.itenspedidos`)
-            const [quantidadePedidos] = [...resultado]
-        console.log(quantidadePedidos)
-        res.status(200).json(quantidadePedidos)
-    } catch (err) {
-        const mysqlErrorHandle = new MysqlErrorHandle(err,res)
-        mysqlErrorHandle.validar()
-}
-})
-app.get("/quantidade_pedidos_clientes", async (req, res) => {
-    try {
-        const [resultado, campos] =
-            await connection.execute(`SELECT clientes.nome, COUNT(*) AS quantidade_produtos FROM dbteremercado.clientes INNER JOIN dbteremercado.pedidos ON clientes.idclientes= pedidos.clientes_idclientes group by clientes.nome`)
-        console.log(resultado)
-        res.status(200).json(resultado)
-    } catch (err) {
-        const mysqlErrorHandle = new MysqlErrorHandle(err,res)
-        mysqlErrorHandle.validar()
-}
-})
-app.get("/quantidade_produtos_por_cliente", async (req, res) => {
-    try {
-        const [resultado, campos] =
-            await connection.execute(`SELECT nome, idpedidos, SUM(quantidade) AS quantidade_pedidos FROM clientes INNER JOIN pedidos ON idclientes= clientes_idclientes INNER JOIN itenspedidos ON idpedidos=pedidos_idpedidos GROUP BY idpedidos`)
-        console.log(resultado)
-        res.status(200).json(resultado)
-    } catch (err) {
-        const mysqlErrorHandle = new MysqlErrorHandle(err,res)
-        mysqlErrorHandle.validar()
-}
-})
-app.get("/valor_pedido_total", async (req, res) => {
-    try {
-        const [resultado, campos] =
-            await connection.execute(`SELECT clientes.nome, SUM(quantidade*preco) AS valor_total FROM clientes INNER JOIN pedidos ON clientes.idclientes= pedidos.clientes_idclientes INNER JOIN itenspedidos ON itenspedidos.pedidos_idpedidos= pedidos.idpedidos INNER JOIN produtos ON itenspedidos.produtos_idprodutos= produtos.idprodutos GROUP BY idpedidos`)
-        console.log(resultado)
-        res.status(200).json(resultado)
-    } catch (err) {
-        const mysqlErrorHandle = new MysqlErrorHandle(err,res)
-        mysqlErrorHandle.validar()
-}
-})
-
-
-/* app.get("/pessoas", async (req, res) => {
-    try {
-        const [resultado, campos] =
-            await connection.execute(`SELECT * FROM pessoa`)
-        console.log(resultado)
-        res.status(200).json(resultado)
-    } catch (err) {
-        const mysqlErrorHandle = new MysqlErrorHandle(err,res)
-        mysqlErrorHandle.validar()
-    }
-})//listar
 app.post("/pessoas", async (req, res) => {
+     const { id, nome } = req.body
+        if (!id || !nome) {
+    return res.status(400).json({ mensagem: "Campos id e nome são obrigatórios!"})
+        }
     try {
-        const { id, nome } = req.body
-        if (!id || !nome)
-            return res.status(500).json({ mensagem: "Erro: Os dados de id ou nome estão incorretos!" })
-        const [resultado, campos] =
-            await connection.execute(`insert into pessoa values (?,?)`, [id, nome])
-        console.log(resultado)
-        res.status(201).json({ mensagem: "Sucesso" })
-    } catch (err) {
-        const mysqlErrorHandle = new MysqlErrorHandle(err,res)
-        mysqlErrorHandle.validar()
-    }
-})//Inserir
-app.post("/cadastro_produto", async (req, res) => {
-    try {
-        const { id, nome, categoria, preco, data_criacao, data_modificacao } = req.body
-        if (!id || !nome || !categoria || !preco || !data_criacao || !data_modificacao)
-            return res.status(500).json({ mensagem: "Erro: Os dados de id,nome,categoria,preco,data_criacao,data_modificacao estão incorretos!" })
-        const [resultado, campos] =
-            await connection.execute(`insert into produto values (?,?,?,?,?,?)`, [id, nome, categoria, preco, data_criacao, data_modificacao])
-        console.log(resultado)
-        res.status(201).json({ mensagem: "Sucesso" })
+        const [result] =
+            await connection.execute<ResultSetHeader>(
+       `INSERT INTO aula1.pessoa VALUES (?, ?)`,
+       [id, nome]
+    )
     } catch (err) {
         const mysqlErrorHandle = new MysqlErrorHandle(err,res)
         mysqlErrorHandle.validar()
     }
 })
-app.get("/listar_produtos", async (req, res) => {
+app.post("/cadastro_produto_v2.", async (req, res) => {
+     const { id, nome } = req.body
+        if (!id || !nome) {
+    return res.status(400).json({ mensagem: "Campos id e nome são obrigatórios!"})
+        }
     try {
-        const [resultado, campos] =
-            await connection.execute(`SELECT * FROM produto`)
-        console.log(resultado)
-        res.status(200).json(resultado)
+        const [result] =
+            await connection.execute<ResultSetHeader>(
+       `INSERT INTO aula1.produto VALUES (?, ?)`,
+       [id, nome]
+    )
     } catch (err) {
         const mysqlErrorHandle = new MysqlErrorHandle(err,res)
         mysqlErrorHandle.validar()
     }
+})
+app.post("/cadastro_multiplos_produtos", async (req, res) => {
+     const { id, nome } = req.body
+        if (!id || !nome) {
+    return res.status(400).json({ mensagem: "Campos id e nome são obrigatórios!"})
+        }
+    try {
+        const [result] =
+            await connection.execute<ResultSetHeader>(
+       `INSERT INTO aula1.produto VALUES (?, ?)`,
+       [id, nome]
+    )
+    } catch (err) {
+        const mysqlErrorHandle = new MysqlErrorHandle(err,res)
+        mysqlErrorHandle.validar()
+    }
+})
+app.put("/produto/:id", async (req, res) => {
+     const { id } = req.params;
+
+     let { nome, preco, categoria} = req.body;
+
+     preco = preco ?? null;
+     categoria = categoria ?? null;
+      
+     await connection.execute(
+        `
+        UPDATE produto
+        SET nome = ?, preco = ?, categoria = ?
+        WHERE id = ?
+        `,
+         [nome, preco, categoria, id]
+     );
+      return res.json({
+        mensagem: "Produto substituído!"
+      });
+    
+})
+app.put("/produto_preco/:id", async (req, res) => {
+     const { id } = req.params;
+
+     let { preco, data_modificacao} = req.body;
+
+     preco = preco ?? null;
+     data_modificacao = data_modificacao ?? null;
+      
+     await connection.execute(
+        `
+        UPDATE produto
+        SET preco = ?, data_modificacao = ?
+        WHERE id = ?
+        `,
+         [preco, data_modificacao, id]
+     );
+      return res.json({
+        mensagem: "Produto substituído!"
+      });
+    
 })
 
-app.get("/listar_produtos_informatica", async (req, res) => {
-    try {
-        const [resultado, campos] =
-            await connection.execute(`SELECT * FROM produto WHERE categoria='informática'`)
-        console.log(resultado)
-        res.status(200).json(resultado)
-    } catch (err) {
-        const mysqlErrorHandle = new MysqlErrorHandle(err,res)
-        mysqlErrorHandle.validar()
-    }
-})
 
-app.get("/listar_produtos_caros", async (req, res) => {
-    try {
-        const [resultado, campos] =
-            await connection.execute(`SELECT * FROM produto WHERE preco>100`)
-        res.status(200).json(resultado)
-    } catch (err) {
-        const mysqlErrorHandle = new MysqlErrorHandle(err,res)
-        mysqlErrorHandle.validar()
-    }
-}) */
-//Criar o servidor
+
+
 app.listen(8000, () => {
     console.log("Servidor iniciado na porta 8000")
 })
